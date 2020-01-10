@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div1{
+            width: 100px;
+            height: 100px;
+            background-color: chartreuse;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<!--要求：div在鼠标按下的时候  （在页面 即在document）可以拖拽div移动 鼠标松开的时候 鼠标所在位置就是div的位置
+div 移动方法：
+一。定位
+二。
+空页面html 8像素大-->
+
+<div class="div1"></div>
+</body>
+
+
+
+<script type="text/javascript">
+
+var div1=document.querySelector('.div1');
+// 要解决不按下不能动？
+var flag=false;//只有为true的时候才能拖动
+div1.onmousedown=function () {
+    flag=true;
+};
+/*document.onmousedown=function () {
+    flag=true;
+};  在document抬起也行*/
+// div1.onmouseup=function () {
+//     flag=false;//按下移动后一直跟着鼠标走
+// };
+document.onmouseup=function () {
+    flag=false;
+};
+//鼠标在document上移动  在document节点上添加鼠标事件
+    document.onmousemove=function () {
+        if(flag === true){
+            //鼠标位置
+            div1.style.left=event.clientX-50+'px';// 原来就是在左上角 鼠标的中心为div的中心
+            div1.style.top=event.clientY-50+'px';
+        }
+
+
+    };
+</script>
+
+</html>

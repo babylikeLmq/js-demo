@@ -1,0 +1,241 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "微软雅黑";
+    color: #14191e;
+}
+a{
+    text-decoration: none;
+}
+a:link,a:visited{
+    color: #5e5e;
+}
+
+@font-face {
+    font-family:"iconfont";
+    src: url('../img/font/iconfont.eot');/*这里以分号结尾下面加src 解决浏览器兼容*/
+    src: url('../img/font/iconfont.eot') format('embedded-opentype'),
+    url('../img/font/iconfont.woff') format('woff'),
+    url('../img/font/iconfont.ttf') format('truetype'),
+    url('../img/font/iconfont.svg#iconfont') format('svg');
+    
+}
+/*@font-face {font-family: 'iconfont';
+    src: url('../img/font/iconfont.eot');
+    src: url('../img/font/iconfont.eot') format('embedded-opentype'),
+
+    url('../img/font/iconfont.woff') format('woff'),
+    url('../img/font/iconfont.ttf') format('truetype'),
+    url('../img/font/iconfont.svg#iconfont') format('svg');
+}*/
+
+
+/*点击前后都是同一个颜色*/
+.main{
+     width: 1200px;
+    height: 460px;
+    margin: 30px auto;
+    overflow: hidden;
+    position: relative;
+    /*不写在main默认相对body定位*/
+}
+/*焦点图*/
+.banner{
+    width: 1200px;
+    height: 460px;
+    overflow: hidden;
+    position:relative;
+    /*?*/
+
+}
+.banner-slide{
+    width: 1200px;
+    height: 460px;
+    float:left;
+    background-repeat: no-repeat;
+    display: none;
+}
+.slide-active{
+    display: block;
+}
+.slide1{
+    background-image: url("../img/bg1.jpg");
+}
+.slide2{
+    background-image: url("../img/bg2.jpg");
+}
+.slide3{
+    background-image: url("../img/bg3.jpg");
+}
+.button{
+    position: absolute;
+    width:40px;
+    height:80px;
+    left:244px;
+    top:50%;
+    /*自身有高度*/
+    margin-top: -40px;
+    /*background-color: red;*/
+    background:url("../img/arrow.png") center center no-repeat;
+
+    transform: rotate(180deg);
+}
+.button:hover{
+    background-color: #333;
+    opacity:0.8;
+/*//其他浏览器*/
+    filter: alpha(opacity=80);
+/*IE*/
+/*-moz-opacity:0.8;                          //火狐*/
+
+
+}
+.next{
+    /*在left不是auto的时候 会优先使用left:244px;的值  */
+    left:auto;
+    right:0;
+    transform: rotate(0deg);
+}
+.dots {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+}
+.dots span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius:50%;
+    background-color: rgba(7,17,27,0.4);
+    margin-left:8px;
+    box-shadow:0 0 0 2px rgba(255,255,255,0.8) inset;
+    cursor: pointer;
+}
+/*要修改的是 background-color和box-shadow的颜色值  颜色互换*/
+/*无效  递进关系*/
+/*.active{*/
+/*    background-color: #fff;*/
+/*    box-shadow:0 0 0 2px rgba(7,17,27,0.4) inset;*/
+/*}*/
+/*.active{*/
+/*    background-color: #fff;*/
+/*    box-shadow:0 0 0 2px rgba(7,17,27,0.4) inset;*/
+/*}*/
+/*第二种写法也行*/
+/*span.active{*/
+/*    background-color: #fff;*/
+/*    box-shadow:0 0 0 2px rgba(7,17,27,0.4) inset;*/
+/*}*/
+
+.dots span.active{
+    background-color: #fff;
+    box-shadow:0 0 0 2px rgba(7,17,27,0.4) inset;
+}
+
+/*主菜单*/
+.menu-box{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color:rgba(7,17,27,0.2) ;
+    width: 244px;
+    height: 460px;
+    z-index: 1;
+}
+/*菜单*/
+.menu-content{
+    position: absolute;
+    left: 0;
+    top: 0;
+    /*重叠关系要定位*/
+    width:244px;
+    height: 460px;
+    z-index: 2;
+    /*在mute上面优先级就要比它高*/
+}
+/*主菜单*/
+.menu-item{
+    /*width继承父元素*/
+    height:64px;
+
+    line-height: 66px;
+    /*行高*/
+    cursor: pointer;
+    padding:0 24px;
+}
+.menu-item a{
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    height: 63px;
+    padding: 0 8px;
+    position: relative;
+}
+.menu-item:last-child{
+    border-bottom: none;
+}
+.menu-item i{
+    position: absolute;
+    font-style: normal;
+    font-weight: normal;
+    right: 32px;
+    top:2px;
+    font-family: "iconfont";
+    font-size: 24px;
+}
+
+.hide{
+    display: none;
+}
+/*内容*/
+.sub-menu{
+    width: 730px;
+    height: 458px;
+    border: 1px solid #d9dde1;
+    position: absolute;
+/*    相对main*/
+left: 244px;
+    top: 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    z-index: 500;
+    background: white;
+
+}
+
+.inner-box{
+    background: url("../img/fe.png") no-repeat;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+.sub-inner-box{
+    /*避免盒子内容过多溢出*/
+    overflow: hidden;
+    margin-left:40px ;
+    width: 652px;
+
+}
+.title{
+    font-size: 16px;
+    color: #f01414;
+    line-height: 16px;
+    font-weight: bold;
+    margin: 28px 0 30px 0;
+
+}
+.sub-row{
+    margin-bottom: 25px;
+}
+.bold{
+    font-weight: 700;
+}
+.mr10{
+    margin-right: 10px;
+}
+.ml10{
+    margin-left: 10px;
+}

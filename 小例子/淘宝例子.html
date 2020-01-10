@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝例子--鼠标进入选项下面的菜单也跟着一起变化</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #d7d3c3;
+        }
+        .boss{
+                width: 300px;
+                height: 170px;
+                 margin: 200px auto;
+                background-color: gray;
+            }
+        .up{
+            width: 100%;
+            height: 50px;
+            background-color:whitesmoke;
+        }
+        .up ul{
+            list-style: none;
+            padding: 0;
+        }
+        .up ul li{
+            float: left;
+            /*text-decoration: none;*///下划线是加给a标签的
+            display: inline-block;
+            width: 60px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+
+        }
+        .up ul li a {
+            text-decoration: none;
+
+        }
+        .up ul li:hover{
+            background-color: mediumblue;
+        }
+        .up ul li a:hover{
+
+            color: white;
+            font-size: 19px;
+        }
+
+        .down{
+            width: 100%;
+            height: 120px;
+            /*background-color: skyblue;*/
+            overflow: hidden;
+            position: relative;
+        }
+        .down div{
+            height: 100%;
+            width: 100%;
+            /*background-color: darkseagreen;*/
+            text-align: center;
+            line-height: 100px;
+            display: none;
+            position: absolute;
+        }
+        .up ul .selected{
+            border-bottom: 3px solid orangered;
+
+        }
+        .down .div_selected{
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<!--onmouseenter 事件在鼠标指针移动到元素上时触发。-->
+<div class='boss'>
+    <div class="up">
+        <ul>
+            <li class="selected"><a href="#">首页</a></li>
+            <li><a href="#">游戏</a></li>
+            <li><a href="#">视频</a></li>
+            <li><a href="#">音乐</a></li>
+            <li><a href="#">购物</a></li>
+        </ul>
+    </div>
+    <div class="down">
+        <div class="div_selected">轻轻的我走了</div>
+        <div>正如我轻轻的来</div>
+        <div>我轻轻的招手</div>
+        <div>作别西天的云彩</div>
+        <div>不带走一片云彩</div>
+    </div>
+    
+    
+</div>
+
+
+</body>
+
+<script type="text/javascript">
+    var lis=document.querySelector('.up').querySelectorAll('li');
+    var divs=document.querySelector('.down').querySelectorAll('div');
+    var timer=null;
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].onmouseenter = function () {
+            //清空所有的样式 要加for 遍历所有
+            var that=this;
+            timer=setTimeout(function () {
+                for (var j = 0; j < lis.length; j++) {//外面for循环结束   如 i=4
+                    lis[j].removeAttribute('class');
+                    divs[j].removeAttribute('class');
+                    //遍历了一次
+                    //找到this在数组lis中的序号   this = lis[i]
+                    if (lis[j] == that) {//this 是window下的
+                        lis[j].className = 'selected';
+                        divs[j].className = 'div_selected';
+                    }
+//默认打开的是li0 div0  lis【1】for循环清空  J【0】 lis【0】!=1 跳过 lis【（j）1】 div【1】清空 下面lis【（j）1】==lis【1】
+// 加上样式
+                    /* //首先想到的是加样式 然后去刷新页面看加上的没有清除 去上面加 this 只能代表一个 还有div 所以加for
+                     // this.className='selected';*/
+
+
+                }
+            	},500);
+
+        };//绑定事件时 不执行里面function代码
+        //离开时删除延时函数  为什么要加？ 假如鼠标进入一秒就离开时间是走的 下划线会过来 所以在鼠标离开的时候要把定时器清除
+        /*lis[i].onmouseleave=function () {
+        	  clearTimeout(timer);
+        	};*/
+    }
+</script>
+</html>

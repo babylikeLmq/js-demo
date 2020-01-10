@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            width: 100%;
+            height: 100%;
+            background-color: #d9dde1;
+        }
+        .calculator{
+            margin:  200px 0 0 600px;//上右下左
+        }
+        .formerInput{
+            width: 160px;
+            height: 25px;
+        }
+        .laterInput{
+            width: 160px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+<!--简易计算器-->
+<div class="calculator">
+    <p>
+        <input type="text" class="formerInput" value='1'>
+        <span class="sign">+</span>
+        <input type="text" class="laterInput" value='2'>
+        <span>=</span>
+        <span class="resultOutput">3</span>
+    </p>
+    <p>
+        <input type="button" value='+' class="btn" title="add">
+        <input type="button" value='-' class="btn" title="subtract">
+        <input type="button" value='×' class="btn" title="multiply">
+        <input type="button" value='÷' class="btn" title="divide">
+    </p>
+</div>
+
+
+</body>
+<script>
+    var calculator=document.querySelector('.calculator');
+    var formerInput=calculator.querySelector('.formerInput');
+    var sign = calculator.querySelector('.sign');
+    var laterInput=calculator.querySelector('.laterInput');
+    var resultOutput=calculator.querySelector('.resultOutput');
+    var btns=calculator.querySelectorAll('.btn');
+
+    for(var i=0;i<btns.length;i++){
+        btns[i].onclick=function () {
+            switch (this.title) {//case=this.title
+                case 'add':
+                    addHandler();
+                    break;
+                case 'subtract':
+                    subtractHandler ();
+                    break;
+                case 'multiply':
+                    multiplyHandler();
+                    break;
+                case 'divide':
+                    divideHandler();
+                    break;
+            }
+        }
+    }
+
+    //加
+    function addHandler() {
+        sign.innerHTML='+';
+        resultOutput.innerHTML=+formerInput.value + +laterInput.value;
+    }
+    //减
+    function subtractHandler() {
+        sign.innerHTML='-';
+        resultOutput.innerHTML=formerInput.value - laterInput.value;
+    }
+    //乘
+    function multiplyHandler() {
+        sign.innerHTML='×';
+        resultOutput.innerHTML=formerInput.value * laterInput.value;
+
+    }
+    //除
+    function divideHandler() {
+        sign.innerHTML='÷';
+        resultOutput.innerHTML = formerInput.value / laterInput.value;
+    }
+</script>
+</html>

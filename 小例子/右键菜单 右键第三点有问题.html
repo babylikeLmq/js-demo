@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义右键菜单</title>
+    <style>
+        *{
+            margin:0;padding: 0;
+        }
+        ul{
+
+            display: none;
+            height: 120px;
+            width: 250px;
+            background-color:darkgrey;
+            border: 1px solid springgreen;
+            padding:0 15px;
+
+
+            position: absolute;
+        }
+        ul li{
+
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            color: white;
+            text-align: center;
+            list-style: none;
+            padding: 0;
+            transition: 0.5s;
+            cursor: pointer;
+            /* 加上这个，让变化慢一点 */
+
+
+        }
+        ul li:hover{
+            background-color: darkorange;
+
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <li>你们赶紧给我一键三连！！</li>
+    <li>你真的要离开本页面吗？？</li>
+    <li>与百度搜索页面选中的内容</li>
+    <li>输入内容去百度搜索：：：</li>
+</ul>
+<textarea name="" id="" cols="80" rows="20"></textarea>
+<!--rows规定文本区域内可见的行数。cols规定文本区域内可见的宽度。-->
+</body>
+<script>
+    // 获取ul
+    var ul=document.querySelector('ul');
+
+    //点击某一个菜单选项时触发的事件（事件委托）
+    ul.onclick=function (eve) {
+    	  if(eve.target.innerHTML=='你们赶紧给我一键三连！！'){
+    	      alert('好的大佬说了算！！！');
+          }else if(eve.target.innerHTML=='你真的要离开本页面吗？？'){
+    	      if(confirm('您真的要离开我吗')){
+    	          window.close();//false 取消 留在页面
+              }
+
+          }else if(eve.target.innerHTML=='与百度搜索页面选中的内容'){
+    	      //获取页面中选中的内容document.getSelection()
+              console.log(document.getSelection().toString());
+              // toString() 方法可把一个逻辑值转换为字符串，并返回结果。 //有问题！！！
+          }else{
+                var content=prompt('您想要输入什么在这里输入就可以了');//提示语
+                window.open('http://www.baidu.com/s?wd='+content);  //content不要加‘’ 加‘’就是百度content   而content表示的是我输入的内容
+          }
+    	};
+    //禁用系统的右键菜单
+    document.oncontextmenu=function () {
+    	  return false;
+    	};
+     document.onmouseup=function (eve) {
+     	  //event.button 判断电机的是那个鼠标按键
+         // console.log(event.button);//0左键 1中键 2右键
+         if(eve.button ==2){
+             //唤醒菜单  block显示
+             ul.style.display='block';
+             //设置鼠标位置是菜单显示的位置
+             ul.style.left=eve.clientX+'px';
+             ul.style.top=eve.clientY+'px';
+         }else{
+             ul.style.display='none';
+             //关闭菜单
+         }
+     	};
+     //菜单显示在鼠标按下的位置
+
+    
+</script>
+</html>

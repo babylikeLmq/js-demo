@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>书城</title>
+    <style>
+        *{  margin: 0; padding: 0;  }
+        .shoppingCar{
+            width: 80%;
+            min-height: 150px;
+            border: 10px solid orange;
+            background-color: skyblue;
+            border-radius: 10px;
+            margin: 50px auto;
+        }
+        .product{
+            width: 25%;
+            display: inline-block;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1 align="center">书城</h1>
+<div class="container"></div>
+<hr/>
+<h2 align="center">购物车</h2>
+<div class="shoppingCar"></div>
+
+<script>
+    var dataStr = '{' +
+            '"img":["d1.jpg","d2.jpg","d3.jpg","d4.jpg","d5.jpg","d6.jpg","d7.jpg","d8.jpg"],' +
+            '"name":[' +
+            '"仍然",' +
+            '"此刻花开",' +
+            '"进击的局座：悄悄话",' +
+            '"股票短线交易（第二版）",' +
+            '"锦绣旗袍 (全二册)",' +
+            '"大暴雪",' +
+            '"男孩的冒险书",' +
+            '"古龙作品集套装72册"],' +
+            '"author":[' +
+            '"庆山",' +
+            '"徐静",' +
+            '"徐静",' +
+            '"徐静",' +
+            '"徐静",' +
+            '"徐静",' +
+            '"徐静",' +
+            '"徐静"], ' +
+            '"newprice":["63.60","33.30","12","15","20","3","8","0.6"],' +
+            '"oldprice":["660","330","120","105","200","30","80","6000"]' +
+            '}';
+    var jsonObj = JSON.parse(dataStr);
+    var containerDiv = document.querySelector('.container');
+    var shoppingCarDiv = document.querySelector('.shoppingCar');
+
+    //有多少条数据，在containerDiv里面添加多少个子div
+   for(var i=0; i<jsonObj.img.length; i++){
+       //一个图书的div
+       var div = document.createElement('div');
+       div.className = 'product';
+       containerDiv.appendChild(div);
+       //图书封面
+       var img = document.createElement('img');
+       img.src = 'img/'+jsonObj.img[i];
+       div.appendChild(img);
+       //图书名称
+       var bookTitle = document.createElement('p');
+       bookTitle.innerHTML = jsonObj.name[i];
+       bookTitle.className = 'bookTitle';
+       div.appendChild(bookTitle);
+       //图书作者
+       var bookAuthor = document.createElement('p');
+       bookAuthor.innerHTML = jsonObj.author[i];
+       div.appendChild(bookAuthor);
+       //图书价格
+       var bookPrice = document.createElement('p');
+       var newPriceSpan = document.createElement('span');
+       var oldPriceSpan = document.createElement('del');
+       newPriceSpan.innerHTML = '￥'+jsonObj.newprice[i];
+       oldPriceSpan.innerHTML = '￥'+jsonObj.oldprice[i];
+       bookPrice.appendChild(newPriceSpan);
+       bookPrice.appendChild(oldPriceSpan);
+       div.appendChild(bookPrice);
+       //添加按钮
+       var buyBtn = document.createElement('button');
+       buyBtn.innerHTML = '添加到购物车';
+       buyBtn.onclick = function (eve) {
+           var cloneBook = eve.target.parentNode.cloneNode(true);
+           cloneBook.removeChild(cloneBook.lastChild);
+           shoppingCarDiv.appendChild(cloneBook);
+       };
+       div.appendChild(buyBtn);
+   };
+</script>
+</body>
+</html>

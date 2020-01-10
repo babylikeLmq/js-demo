@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>案例：品牌案例</title>
+    <!--<script src="js/jquery-1.12.3.min.js"></script>-->
+    <script src="http://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js"></script>
+    <style>
+        *{  margin: 0; padding: 0;  }
+        .container{  width: 600px; border: 1px solid black; margin: 100px auto; padding: 20px;   }
+        .container ul{  list-style: none; text-align: center;  }
+        .container ul li{  display: inline-block; width: 195px;  }
+        .btn{  width: 40%; height: 25px; line-height:25px; text-align: center; border: 1px solid black; background-color: skyblue; color: white; margin: 20px auto 0 auto; cursor: pointer;  }
+    </style>
+</head>
+<body>
+<div class="container">
+    <ul>
+        <li class="jianeng"><a href="#">佳能</a><span>(30440)</span></li>
+        <li><a href="#">索尼</a><span>(30440)</span></li>
+        <li><a href="#">三星</a><span>(30440)</span></li>
+        <li><a href="#">你好</a><span>(30440)</span></li>
+        <li class="jianeng"><a href="#">佳能</a><span>(30440)</span></li>
+        <li><a href="#">柯达</a><span>(30440)</span></li>
+        <li class="jianeng"><a href="#">佳能</a><span>(30440)</span></li>
+        <li><a href="#">再见</a><span>(30440)</span></li>
+        <li class="jianeng"><a href="#">佳能</a><span>(30440)</span></li>
+        <li><a href="#">我好</a><span>(30440)</span></li>
+        <li class="jianeng"><a href="#">佳能</a><span>(30440)</span></li>
+        <li class="jianeng"><a href="#">佳能</a><span>(30440)</span></li>
+    </ul>
+    <div class="btn">显示精简品牌</div>
+</div>
+<script>
+    var $hideItems = $('.jianeng');
+    var $btn = $('.btn');
+    
+    $btn.toggle(function () {
+        //第一次点击，让hideItems隐藏
+        $hideItems.hide();
+        $(this).html('显示全部品牌');
+        $(this).css('color','red');
+    }, function () {
+        //第二次点击，让hideItems出现
+        $hideItems.show();
+        $(this).html('显示精简品牌');
+        $(this).css('color','white');
+    })
+
+</script>
+</body>
+</html>

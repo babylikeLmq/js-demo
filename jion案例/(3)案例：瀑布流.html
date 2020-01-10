@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style>
+        *{  margin: 0; padding: 0;  }
+        .out{  margin: 0 auto; position: relative;  }
+        .in{  float: left;  }
+        img{
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            border-radius: 10px;
+            box-shadow: 0 0 10px orange;
+        }
+    </style>
+</head>
+<body>
+<div class="out"></div>
+<script>
+    var dataStr = '{"src":["i1.jpg","i2.jpg","i3.jpg","i4.jpg","i5.jpg","i6.jpg","i7.jpg","i8.jpg","i9.jpg","i10.jpg","i11.jpg","i12.jpg","i13.jpg","i14.jpg","i15.jpg"]}';
+    var dataObj = JSON.parse(dataStr);
+    var outDiv = document.querySelector('.out');
+
+    //有一个数据，添加一个图片
+    for(var i=0; i<dataObj.src.length; i++){
+        var div = document.createElement('div');
+        div.className = 'in';
+        div.innerHTML = '<img src="img/'+dataObj.src[i]+'"/>';
+        outDiv.appendChild(div);
+    }
+
+    //当页面中图片已经加载完，才能知道一行能放下几张图
+    window.onload = function () {
+        //获取所有的inDiv
+        var inDivs = document.querySelectorAll('.in');
+        var viewportWidth = document.documentElement.clientWidth||document.body.clientWidth;
+        var oneDivWidth = inDivs[0].offsetWidth;
+        var num = Math.floor(viewportWidth/oneDivWidth);
+        outDiv.style.width = num*oneDivWidth+'px';
+        //高度数组，用来存放第一行图片的高度
+        var heightArr = [];
+
+        //对每一张图片设置定位，构建瀑布流
+        for(var j=0; j<inDivs.length; j++){
+            if(j<num){
+                //如果是第一行图片，不需要设置定位，但是需要保存高度
+                heightArr.push(inDivs[j].offsetHeight);
+            }else{
+                //如果不是第一行图片，需要设置定位。根据第一行设置定位
+                inDivs[j].style.position = 'absolute';
+                //在高度数组中找到最小的高度【当前这张图片的top定位是这个值】
+                var minHeight = Math.min.apply(null,heightArr);
+                //在高度数组中找到最小高度的下标，因为最小高度的div在inDivs数组中下标就是这个
+                var minIndex = heightArr.indexOf(minHeight);
+                //根据下标找到这个最小的div，并获取他的左定位【当前这张图片的left定位是这个值】
+                var tempLeft = inDivs[minIndex].offsetLeft;
+                //设置当前图片的定位
+                inDivs[j].style.top = minHeight + 'px';
+                inDivs[j].style.left = tempLeft + 'px';
+                //将高度数组中最小的这个高度，累加上当前这张图片的高度
+                heightArr[minIndex] = heightArr[minIndex] + inDivs[j].offsetHeight;
+            }
+        }
+    };
+
+</script>
+</body>
+</html>

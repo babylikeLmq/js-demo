@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .greenBorder{border: 3px solid green;}
+        .redBorder{border:3px solid red;}
+        .colorGreen{color: green;}
+        .colorRed{color: red;}
+        input{
+            display: inline-block;
+        }
+        .div1{
+         width: 50px;
+            height: 30px;
+            border: 2px solid brown;
+            background-color: chartreuse;
+        }
+    </style>
+</head>
+<body>
+
+<!--//不要直接写 如：（用户名：) 这样了  （用户名：)这个是文本节点是加不了字体颜色 改不了字体大小的 很多操作页面的方法都是元素节点生效的
+  换行<p>也行
+  shitf+enter 光标在下一行显示格式与上一行开头位置是一致的-->
+<p>
+    <span>用户名：&nbsp&nbsp&nbsp&nbsp</span>
+    <input type="text" placeholder='请输入长度大于6位数字' class="userName">
+    <span class="userNameSpan"></span>
+</p>
+<p>
+    <span>密码：&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+    <input type="passwork" placeholder='请输入6~12位数字的密码' class="password">
+    <span class="passwordSpan"></span>
+</p>
+<p>
+    <span>确认密码：</span>
+    <input type="text" placeholder='确认密码' class="confirm">
+    <span class="confirmSpan"></span>
+</p>
+<p>
+    <span>验证码：&nbsp&nbsp&nbsp&nbsp</span>
+    <input type="text" placeholder='请输入正确的验证码' >
+    <span ></span>
+</p>
+
+<div class="div1"></div>
+<br>
+<button disabled>提交</button>
+</body>
+
+<script type="text/javascript">
+    var userNameInput=document.querySelector('.userName');
+    var passwordInput=document.querySelector('.password');
+    var confirmInput=document.querySelector('.confirm');
+    var userNameSpan=document.querySelector('.userNameSpan');
+    var passwordSpan=document.querySelector('.passwordSpan');
+    var confirmSpan=document.querySelector('.confirmSpan');
+    var btn=document.querySelector('button');
+    function CheckIfSuccess() {
+        //12345678910
+        if(userNameSpan.innerHTML === '正确'&&passwordSpan.innerHTML === '正确'&& confirmSpan.innerHTML==='正确'){
+
+            btn.removeAttribute('disabled');
+        }else{
+
+            btn.setAttribute('disabled','disabled');
+        }
+    	}
+
+    //焦点失去时判断
+    userNameInput.focus();
+    userNameInput.onblur=function () {
+        var name=userNameInput.value;
+        if(name.length == 11){
+            //合法
+            //边框变绿
+            userNameInput.setAttribute('class','greenBorder');
+            //不用userName.style.border 一个一个=加
+            //文字变绿
+            // userName.style.color='green';
+            userNameSpan.setAttribute('class','colorGreen');
+            //文字显示：正确(yes)
+            userNameSpan.innerHTML='正确';
+        }else{
+            //不合法
+            //边框变红
+            userNameInput.setAttribute('class','redBorder');
+
+            //文字变红
+            // userName.style.color='green';
+            userNameSpan.setAttribute('class','colorRed');
+            //文字显示：错误(no)
+            userNameSpan.innerHTML='请输入正确的手机号';
+            //但是ZXCVBNMASDF 这种十一个字母也是正确？ 按钮还是禁用状态
+
+        }
+        CheckIfSuccess();
+        //输入完毕后按钮是否可以点击  根据span判断 你不知道用户输入的顺序所以每一个后面都要加判断
+       /* if(userNameSpan.innerHTML === '正确'&&passwordSpan.innerHTML === '正确'){
+            //删除disabled属性
+            btn.removeAttribute('disabled');
+        }else{
+            //添加disabled 属性  为什么 因为在全部写对的时候 按钮可以点击 你在回头修改输入框的内容 失去焦点 按钮要禁用
+            btn.setAttribute('disabled','disabled');
+        }*/
+    };
+    //
+    passwordInput.onblur=function () {
+
+            var pass= passwordInput.value;
+            if(pass.length >6&&pass.length<12){
+
+                passwordInput.setAttribute('class','greenBorder');
+
+                passwordSpan.setAttribute('class','colorGreen');
+
+                passwordSpan.innerHTML='正确';
+            }else{
+
+                passwordInput.setAttribute('class','redBorder');
+
+
+                passwordSpan.setAttribute('class','colorRed');
+
+                passwordSpan.innerHTML='密码长度为6~12位数字';
+
+
+            }
+            CheckIfSuccess();
+    };
+
+confirmInput.onblur=function () {
+    var proving= confirmInput.value;
+    if(proving.length>0&&proving===passwordInput.value){
+//proving===passwordInput.value  当密码为空  显示正确!!!
+        confirmInput.setAttribute('class','greenBorder');
+
+        confirmSpan.setAttribute('class','colorGreen');
+
+        confirmSpan.innerHTML='正确';
+    }else{
+
+        confirmInput.setAttribute('class','redBorder');
+
+
+        confirmSpan.setAttribute('class','colorRed');
+
+        confirmSpan.innerHTML='请输入正确的密码';
+
+
+    }
+    CheckIfSuccess();
+
+};
+
+
+
+
+
+
+
+
+
+
+/*
+
+    var div1=document.querySelector('.div1');
+
+
+
+
+  var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
+    function createRandom(n) {
+        let arr = "";
+        for(var i = 0; i < n ; i ++) {
+            var id = Math.ceil(Math.random()*35); //10+24  因为Math.random()取不到1，所以需要往上+1  Math.ceil(n); 返回大于等于n的最小整数。
+            arr += chars[id];//
+        }
+        return arr;
+    }
+    var val=createRandom(11);//'FWGOD5KA4Q1'
+
+    console.log('val');
+*/
+
+
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>手风琴</title>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <style>
+        *{  margin: 0; padding: 0;  }
+        .shoufengqin{  width: 600px; margin: 80px auto; border: 1px solid lightgray;  }
+        .shoufengqin ul{  list-style: none;  }
+        .shoufengqin ul li{  border-bottom: 1px dotted black;  }
+        .shoufengqin ul li h3{  background-color: skyblue; position: relative;  }
+        .shoufengqin ul li h3 span{  position: absolute; right: 5px;  }
+        .shoufengqin ul li .cont{  display: none;  }
+    </style>
+</head>
+<body>
+<div class="shoufengqin">
+    <ul>
+        <li>
+            <h3>标题<span>></span></h3>
+            <div class="cont">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+        </li>
+        <li>
+            <h3>标题<span>></span></h3>
+            <div class="cont">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+        </li>
+        <li>
+            <h3>标题<span>></span></h3>
+            <div class="cont">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+        </li>
+    </ul>
+</div>
+<script>
+
+    $('h3').click(function () {
+        //is(':visible')表示判断jq对象是否可见。
+        if($(this).siblings().is(':visible')){
+            //如果是可见的，就把内容div收起
+            $(this).siblings().slideUp();
+
+            //变更指示符号
+            $(this).find('span').html('>');
+        }else{
+            //在展开当前标题的内容区之前，先把所有其他的内容区收起
+            $(this).parent().siblings().find('.cont').slideUp();
+            //如果是不可见的，就把内容div显示
+            $(this).siblings().slideDown();
+
+            //在变更当前li的指示符号之前，先把所有其他的li的指示符号变回去
+            $(this).parent().siblings().find('span').html('>');
+            //变更指示符号
+            $(this).find('span').html('v');
+        }
+
+    });
+
+</script>
+</body>
+</html>

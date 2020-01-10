@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表格隔列变色</title>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <style>
+        table{  margin-top: 100px;  }
+    </style>
+</head>
+<body>
+
+<table border="1" cellspacing="0" width="600" align="center">
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+    <tr><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td><td>123</td></tr>
+</table>
+
+<script>
+    var $tds = $('td');
+    var $trs = $('tr');
+
+    $tds.mouseenter(function () {
+        //拿到当前td的序号
+        var index = $(this).index();
+        //遍历每一个tr，让每一个tr中的第index个td变色
+        $trs.each(function () {
+            $(this).children().eq(index).css('background-color','red');
+        });
+    }).mouseleave(function () {
+        //拿到当前td的序号
+        var index = $(this).index();
+        //遍历每一个tr，让每一个tr中的第index个td变色
+        $trs.each(function () {
+            $(this).children().eq(index).css('background-color','transparent');
+        });
+    });
+</script>
+</body>
+</html>
